@@ -29,7 +29,7 @@ const Books = () => {
 
     const handleCheckedBooks = (book: Library) => {
         if (readingListBooks.includes(book)) {
-            setReadingListBooks(readingListBooks.filter(b => b !== book));
+            setReadingListBooks(readingListBooks.filter((b) => b !== book));
             setTotalBooks(totalBooks + 1);
         } else {
             setReadingListBooks([...readingListBooks, book]);
@@ -39,36 +39,41 @@ const Books = () => {
 
     return (
         <>
-            <div className="w-full h-20 flex justify-center align-middle">
-                <div className="flex justify-around align-middle w-full">
-                    <h1>{totalBooks} libros disponibles</h1>
-                    <p>{readingListBooks.length} en la lista de lectura</p>
+            <div className="w-full h-auto p-12">
+                <div className="w-full h-auto flex justify-center align-middle text-white">
+                    <div className="flex justify-around align-middle w-full">
+                        <h1>{totalBooks} libros disponibles</h1>
+                        <p>{readingListBooks.length} en la lista de lectura</p>
+                    </div>
+                </div>
+                <div className="w-full flex justify-center align-between gap-24">
+                    <div>
+                        <h2>Filtrar por paginas</h2>
+                        {/* <Pagination
+                            length={totalBooks}
+                            postsPerPage={4}
+                            handlePagination={handlePagination}
+                            currentPage={currentPage}
+                        /> */}
+                    </div>
+                    <div>
+                        <FilterBook />
+                    </div>
                 </div>
             </div>
-            <div className="w-full flex justify-center align-between gap-24">
-                <div>
-                    <h2>Filtrar por paginas</h2>
-                    {/* <Pagination
-                        length={totalBooks}
-                        postsPerPage={4}
-                        handlePagination={handlePagination}
-                        currentPage={currentPage}
-                    /> */}
-                </div>
-                <div>
-                    <FilterBook />
-                </div>
-            </div>
-            <div className="w-full h-full flex justify-center align-middle flex-wrap gap-12">
+            <div className="w-full h-auto flex justify-start align-middle flex-wrap gap-8">
                 {currentBooks.map((library: Library) => {
                     const isChecked = readingListBooks.includes(library);
                     return (
                         <div
                             key={library.book.ISBN}
                             className="cursor-pointer"
-                            onClick={() => handleCheckedBooks(library)}
-                            >
-                            <Book title={library.book.title} cover={library.book.cover} isChecked={isChecked}/>
+                            onClick={() => handleCheckedBooks(library)}>
+                            <Book
+                                title={library.book.title}
+                                cover={library.book.cover}
+                                isChecked={isChecked}
+                            />
                         </div>
                     );
                 })}
