@@ -11,9 +11,7 @@ const ReadingListBooks = () => {
     const { readingListBooks, setReadingListBooks, totalBooks, setTotalBooks } = booksContext;
 
     const handleDeleteBook = (readingBook: Library) => {
-        const newReadingListBooks = readingListBooks.filter(
-            (book) => book !== readingBook
-        );
+        const newReadingListBooks = readingListBooks.filter((book) => book !== readingBook);
         setReadingListBooks(newReadingListBooks);
         setTotalBooks(totalBooks + 1);
     };
@@ -24,9 +22,13 @@ const ReadingListBooks = () => {
             <div>
                 {readingListBooks.map((readingBook: Library) => (
                     <>
-                    <div>
-                        <span className='cursor-pointer' onClick={() => handleDeleteBook(readingBook)}>X</span>
-                    </div>
+                        <div>
+                            <span
+                                className="cursor-pointer"
+                                onClick={() => handleDeleteBook(readingBook)}>
+                                X
+                            </span>
+                        </div>
                         <Book
                             key={readingBook.book.ISBN}
                             title={readingBook.book.title}
