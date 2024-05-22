@@ -39,8 +39,8 @@ const Books = () => {
 
     return (
         <>
-            <div className="w-full h-auto p-12">
-                <div className="w-full h-auto flex justify-center align-middle text-white">
+            <div className="w-full h-full p-12">
+                <div className="w-full h-full flex justify-center align-middle text-white">
                     <div className="flex justify-around align-middle w-full">
                         <h1>{totalBooks} libros disponibles</h1>
                         <p>{readingListBooks.length} en la lista de lectura</p>
@@ -61,7 +61,7 @@ const Books = () => {
                     </div>
                 </div>
             </div>
-            <div className="w-full h-auto flex justify-start align-middle flex-wrap gap-8">
+            <div className="w-full h-[100%] grid md:grid-cols-3 grid-cols-1 gap-8">
                 {currentBooks.map((library: Library) => {
                     const isChecked = readingListBooks.includes(library);
                     return (
