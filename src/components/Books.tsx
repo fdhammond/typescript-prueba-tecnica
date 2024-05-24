@@ -4,6 +4,7 @@ import { BookContext } from '../context/Context';
 import { Library } from '../types/types';
 import Pagination from './Pagination';
 import FilterBook from './FilterBook';
+import SearchBooks from './SearchBooks';
 
 const Books = () => {
     const booksContext = useContext(BookContext);
@@ -45,6 +46,9 @@ const Books = () => {
                         <h1>{totalBooks} libros disponibles</h1>
                         <p>{readingListBooks.length} en la lista de lectura</p>
                     </div>
+                </div>
+                <div className="flex justify-start align-middle w-full text-white mt-8">
+                    <SearchBooks />
                 </div>
                 <div className="w-full flex justify-center align-between gap-24">
                     <div>

@@ -8,8 +8,10 @@ interface BookContextProps {
     currentBooks: Library[];
     checkedBooks: Library[];
     readingListBooks: Library[];
+    filteredBooks: string;
     genre: string;
     genres: string[];
+    setFilteredBooks: React.Dispatch<React.SetStateAction<string>>;
     setGenre: (genres: string) => void;
     setCurrentBooks: (currentBooks: Library[]) => void;
     setReadingListBooks: (readingListBooks: Library[]) => void;
@@ -32,7 +34,8 @@ const BookProvider = ({ children }: { children: React.ReactNode }) => {
     const [checkedBooks, setCheckedBooks] = useState<Library[]>([]);
     const [readingListBooks, setReadingListBooks] = useState<Library[]>([]);
     const [currentBooks, setCurrentBooks] = useState<Library[]>([]);
-    const [genre, setGenre] = useState<string>('todos')
+    const [genre, setGenre] = useState<string>('todos');
+    const [filteredBooks, setFilteredBooks] = useState<string>('');
 
     const booksPerPage = books.length;
 
@@ -41,6 +44,19 @@ const BookProvider = ({ children }: { children: React.ReactNode }) => {
         const indexOfFirstBook = indexOfLastBook - booksPerPage;
         const currentBooksList = books.slice(indexOfFirstBook, indexOfLastBook);
         setCurrentBooks(currentBooksList);
+        if (filteredBooks) {
+            setCurrentBooks(
+                currentBooksList.filter(
+                    (book) =>
+                        book.book.ISBN.toString().includes(filteredBooks) ||
+                        book.book.synopsis.toLowerCase().includes(filteredBooks) ||
+                        book.book.title.toLowerCase().includes(filteredBooks) ||
+                        book.book.genre.toLowerCase().includes(filteredBooks) ||
+                        book.book.author.name.toLowerCase().includes(filteredBooks)
+                )
+            );
+        }
+
         if (genre !== 'todos') {
             const currentBooksGenreFilter = currentBooksList.filter(
                 (book) => book.book.genre === genre
@@ -50,7 +66,7 @@ const BookProvider = ({ children }: { children: React.ReactNode }) => {
         } else {
             setTotalBooks(books.length);
         }
-    }, [genre]);
+    }, [genre, filteredBooks]);
 
     return (
         <BookContext.Provider
@@ -62,6 +78,8 @@ const BookProvider = ({ children }: { children: React.ReactNode }) => {
                 readingListBooks,
                 genre,
                 genres,
+                filteredBooks,
+                setFilteredBooks,
                 setGenre,
                 setReadingListBooks,
                 setCurrentBooks,
