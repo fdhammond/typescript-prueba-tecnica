@@ -5,6 +5,7 @@ import { Library } from '../types/types';
 import Pagination from './Pagination';
 import FilterBook from './FilterBook';
 import SearchBooks from './SearchBooks';
+import ShowReadingListButton from './ShowReadingListButton';
 
 const Books = () => {
     const booksContext = useContext(BookContext);
@@ -17,6 +18,8 @@ const Books = () => {
         currentPage,
         checkedBooks,
         readingListBooks,
+        showReadingList,
+        setShowReadingList,
         setReadingListBooks,
         setCurrentBooks,
         setTotalBooks,
@@ -38,6 +41,10 @@ const Books = () => {
         }
     };
 
+    const handleReadingBooks = () => {
+        setShowReadingList(!showReadingList);
+    };
+
     return (
         <>
             <div className="w-full h-full p-12">
@@ -52,7 +59,7 @@ const Books = () => {
                 </div>
                 <div className="w-full flex justify-center align-between gap-24">
                     <div>
-                        <h2>Filtrar por paginas</h2>
+                        <h2 className="text-white">Filtrar por paginas</h2>
                         {/* <Pagination
                             length={totalBooks}
                             postsPerPage={4}
@@ -62,6 +69,16 @@ const Books = () => {
                     </div>
                     <div>
                         <FilterBook />
+                    </div>
+                    <div className="w-full h-auto flex flex-wrap">
+                        {!showReadingList && readingListBooks.length ? (
+                            <ShowReadingListButton
+                                handleReadingBooks={handleReadingBooks}
+                                label={'Show Reading List'}
+                            />
+                        ) : (
+                            ''
+                        )}
                     </div>
                 </div>
             </div>
@@ -75,6 +92,7 @@ const Books = () => {
                             onClick={() => handleCheckedBooks(library)}>
                             <Book
                                 title={library.book.title}
+                                key={library.book.ISBN}
                                 cover={library.book.cover}
                                 isChecked={isChecked}
                             />

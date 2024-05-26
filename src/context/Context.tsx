@@ -11,6 +11,8 @@ interface BookContextProps {
     filteredBooks: string;
     genre: string;
     genres: string[];
+    showReadingList: boolean;
+    setShowReadingList: React.Dispatch<React.SetStateAction<boolean>>;
     setFilteredBooks: React.Dispatch<React.SetStateAction<string>>;
     setGenre: (genres: string) => void;
     setCurrentBooks: (currentBooks: Library[]) => void;
@@ -36,6 +38,7 @@ const BookProvider = ({ children }: { children: React.ReactNode }) => {
     const [currentBooks, setCurrentBooks] = useState<Library[]>([]);
     const [genre, setGenre] = useState<string>('todos');
     const [filteredBooks, setFilteredBooks] = useState<string>('');
+    const [showReadingList, setShowReadingList] = useState<boolean>(false);
 
     const booksPerPage = books.length;
 
@@ -79,6 +82,8 @@ const BookProvider = ({ children }: { children: React.ReactNode }) => {
                 genre,
                 genres,
                 filteredBooks,
+                showReadingList,
+                setShowReadingList,
                 setFilteredBooks,
                 setGenre,
                 setReadingListBooks,
