@@ -1,11 +1,14 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { BookContext } from '../context/Context';
 
 const SearchBooks = () => {
     const booksContext = useContext(BookContext);
+    if (!booksContext) {
+        throw new Error('BookContext not found');
+    }
     const { filteredBooks, setFilteredBooks } = booksContext;
 
-    const handleFilteredBooks = (e: any) => {
+    const handleFilteredBooks = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFilteredBooks(e.target.value);
     };
 

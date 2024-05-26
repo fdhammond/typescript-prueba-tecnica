@@ -91,9 +91,15 @@ const Books = () => {
                             className="cursor-pointer"
                             onClick={() => handleCheckedBooks(library)}>
                             <Book
-                                title={library.book.title}
                                 key={library.book.ISBN}
+                                title={library.book.title}
                                 cover={library.book.cover}
+                                genre={library.book.genre}
+                                synopsis={library.book.synopsis}
+                                year={library.book.year}
+                                pages={library.book.pages}
+                                ISBN={library.book.ISBN}
+                                author={library.book.author}
                                 isChecked={isChecked}
                             />
                         </div>

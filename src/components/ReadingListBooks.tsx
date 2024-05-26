@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-import { motion } from 'framer-motion';
 import { BookContext } from '../context/Context';
 import { Library } from '../types/types';
 import Book from './Book';
@@ -41,7 +40,7 @@ const ReadingListBooks = () => {
                 </>
                 <div className="w-auto h-auto flex justify-start flex-wrap">
                     {readingListBooks.map((readingBook: Library) => (
-                        <div className="h-full">
+                        <div className="h-full" key={readingBook.book.ISBN}>
                             <div>
                                 <span
                                     className="cursor-pointer"
@@ -54,6 +53,12 @@ const ReadingListBooks = () => {
                                     key={readingBook.book.ISBN}
                                     title={readingBook.book.title}
                                     cover={readingBook.book.cover}
+                                    genre={readingBook.book.genre}
+                                    synopsis={readingBook.book.synopsis}
+                                    year={readingBook.book.year}
+                                    pages={readingBook.book.pages}
+                                    ISBN={readingBook.book.ISBN}
+                                    author={readingBook.book.author}
                                 />
                             </div>
                         </div>
